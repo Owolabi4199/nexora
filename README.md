@@ -19,19 +19,15 @@ In Firebase Console, open project **nexora-514918**.
 4. In Authentication → Settings → Authorized domains, add the hosting domain if it is not already listed.
 5. In Firestore → Rules, publish the rules in `firestore.rules`. They restrict each signed-in user to their own `users/{uid}` document and subcollections.
 
-## Configure environment
+## Firebase configuration
 
-Copy `.env.example` to `.env.local` and replace placeholders with values from the Firebase web app config:
+The Firebase web app settings are stored in `src/firebase-config.js` and imported by the client. Firebase web configuration (including the API key) identifies the project; it is not a service-account credential. Never add service-account JSON, private keys, or server secrets to this repository.
 
-- `VITE_FIREBASE_API_KEY`
-- `VITE_FIREBASE_AUTH_DOMAIN`
-- `VITE_FIREBASE_PROJECT_ID`
-- `VITE_FIREBASE_STORAGE_BUCKET`
-- `VITE_FIREBASE_MESSAGING_SENDER_ID`
-- `VITE_FIREBASE_APP_ID`
-- `VITE_FIREBASE_MEASUREMENT_ID` (optional)
-
-Do not commit `.env.local`. Firebase web configuration is designed to be used by client apps; security is enforced by Firebase Security Rules. Never put service-account keys or private server secrets in Vite variables.
+Before launch:
+1. In Firebase Console → Authentication → Sign-in method, confirm Google is enabled and a support email is selected.
+2. In Authentication → Settings → Authorized domains, confirm the deployed `web.app` and `firebaseapp.com` domains are authorized.
+3. In Firestore → Rules, publish the rules in `firestore.rules`. They restrict each signed-in user to their own user document and tasks subcollection.
+4. In Google Cloud Console, restrict the Firebase API key to the APIs and web referrers required by this app once the production domain is known.
 
 ## Run locally
 
